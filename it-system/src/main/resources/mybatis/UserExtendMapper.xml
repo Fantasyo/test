@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.colibri.itsystem.dao.UserExtendDao">
+ <resultMap id="BaseResultMap" type="cn.com.colibri.itsystem.domain.User">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="CREAT_TIME" jdbcType="TIMESTAMP" property="creatTime" />
+    <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="DELETE_FLAG" jdbcType="INTEGER" property="deleteFlag" />
+    <result column="ADDRESS" jdbcType="INTEGER" property="address" />
+  </resultMap>
+
+</mapper>

@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.colibri.itsystem.dao.MaintainOrderDao">
+ <resultMap id="BaseResultMap" type="cn.com.colibri.itsystem.domain.MaintainOrder">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="JOB_NUMBER" jdbcType="INTEGER" property="jobNumber" />
+    <result column="REAL_NAME" jdbcType="VARCHAR" property="realName" />
+    <result column="DEPARTMENT" jdbcType="VARCHAR" property="department" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="MAINTAIN_TYPE" jdbcType="INTEGER" property="maintainType" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+    <result column="REMAK" jdbcType="VARCHAR" property="remak" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="USER_ID" jdbcType="BIGINT" property="userId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    ${listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID
+     ,JOB_NUMBER,REAL_NAME,DEPARTMENT,DESCRIPTION,MAINTAIN_TYPE,STATUS,REMAK,CREATE_TIME,END_TIME,USER_ID
+  </sql>
+  <select id="selectByCriteria" parameterType="cn.com.colibri.itsystem.domain.criteria.MaintainOrderCriteria" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from MAINTAIN_ORDER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from MAINTAIN_ORDER
+    where 
+    1=1 and ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from MAINTAIN_ORDER
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByCriteria" parameterType="cn.com.colibri.itsystem.domain.criteria.MaintainOrderCriteria">
+    delete from MAINTAIN_ORDER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.com.colibri.itsystem.domain.MaintainOrder"  useGeneratedKeys="true" keyProperty="id">
+    insert into MAINTAIN_ORDER (
+	  JOB_NUMBER
+           ,REAL_NAME
+           ,DEPARTMENT
+           ,DESCRIPTION
+           ,MAINTAIN_TYPE
+           ,STATUS
+           ,REMAK
+           ,CREATE_TIME
+           ,END_TIME
+           ,USER_ID
+     )
+    values (
+	  #{jobNumber,jdbcType=INTEGER}
+      ,#{realName,jdbcType=VARCHAR}
+          ,#{department,jdbcType=VARCHAR}
+          ,#{description,jdbcType=VARCHAR}
+          ,#{maintainType,jdbcType=INTEGER}
+          ,#{status,jdbcType=INTEGER}
+          ,#{remak,jdbcType=VARCHAR}
+          ,#{createTime,jdbcType=TIMESTAMP}
+          ,#{endTime,jdbcType=TIMESTAMP}
+          ,#{userId,jdbcType=BIGINT}
+    )
+  </insert>
+   <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+    <selectKey keyProperty="ID" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into MAINTAIN_ORDER (
+	  JOB_NUMBER
+     
+      ,REAL_NAME
+     
+      ,DEPARTMENT
+     
+      ,DESCRIPTION
+     
+      ,MAINTAIN_TYPE
+     
+      ,STATUS
+     
+      ,REMAK
+     
+      ,CREATE_TIME
+     
+      ,END_TIME
+     
+      ,USER_ID
+     )
+    values
+    <foreach collection="list" item="item" separator=",">
+       (
+	  #{item.jobNumber,jdbcType=INTEGER}
+
+      ,#{item.realName,jdbcType=VARCHAR}
+    
+      ,#{item.department,jdbcType=VARCHAR}
+    
+      ,#{item.description,jdbcType=VARCHAR}
+    
+      ,#{item.maintainType,jdbcType=INTEGER}
+    
+      ,#{item.status,jdbcType=INTEGER}
+    
+      ,#{item.remak,jdbcType=VARCHAR}
+    
+      ,#{item.createTime,jdbcType=TIMESTAMP}
+    
+      ,#{item.endTime,jdbcType=TIMESTAMP}
+    
+      ,#{item.userId,jdbcType=BIGINT}
+    )
+    </foreach>
+   </insert>
+  <insert id="insertSelective" parameterType="cn.com.colibri.itsystem.domain.MaintainOrder"  useGeneratedKeys="true" keyProperty="id">
+    insert into MAINTAIN_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jobNumber != null">
+        JOB_NUMBER,
+      </if>
+      <if test="realName != null">
+        REAL_NAME,
+      </if>
+      <if test="department != null">
+        DEPARTMENT,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="maintainType != null">
+        MAINTAIN_TYPE,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="remak != null">
+        REMAK,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jobNumber != null">
+        #{jobNumber,jdbcType=INTEGER},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="maintainType != null">
+        #{maintainType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remak != null">
+        #{remak,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByCriteria" parameterType="cn.com.colibri.itsystem.domain.criteria.MaintainOrderCriteria" resultType="java.lang.Long">
+    select count(*) from MAINTAIN_ORDER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByCriteriaSelective" parameterType="map">
+    update MAINTAIN_ORDER
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.jobNumber != null">
+        JOB_NUMBER=#{record.jobNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.realName != null">
+        REAL_NAME=#{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.department != null">
+        DEPARTMENT=#{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        DESCRIPTION=#{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maintainType != null">
+        MAINTAIN_TYPE=#{record.maintainType,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        STATUS=#{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.remak != null">
+        REMAK=#{record.remak,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME=#{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null">
+        END_TIME=#{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null">
+        USER_ID=#{record.userId,jdbcType=BIGINT},
+      </if>
+    </set>
+  </update>
+  <update id="updateByCriteria" parameterType="map">
+    update MAINTAIN_ORDER
+    set ID = #{record.id,jdbcType=BIGINT},
+       JOB_NUMBER=#{record.jobNumber,jdbcType=INTEGER},
+       REAL_NAME=#{record.realName,jdbcType=VARCHAR},
+       DEPARTMENT=#{record.department,jdbcType=VARCHAR},
+       DESCRIPTION=#{record.description,jdbcType=VARCHAR},
+       MAINTAIN_TYPE=#{record.maintainType,jdbcType=INTEGER},
+       STATUS=#{record.status,jdbcType=INTEGER},
+       REMAK=#{record.remak,jdbcType=VARCHAR},
+       CREATE_TIME=#{record.createTime,jdbcType=TIMESTAMP},
+       END_TIME=#{record.endTime,jdbcType=TIMESTAMP},
+       USER_ID=#{record.userId,jdbcType=BIGINT},
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  
+  <select id="countPage" resultType="int" parameterType="map">
+  	SELECT COUNT(*) FROM MAINTAIN_ORDER 
+	WHERE  1=1
+      <if test="jobNumber != null">
+       and JOB_NUMBER = #{jobNumber,jdbcType=INTEGER}
+      </if>
+      <if test="realName != null">
+       and REAL_NAME = #{realName,jdbcType=VARCHAR}
+      </if>
+      <if test="department != null">
+       and DEPARTMENT = #{department,jdbcType=VARCHAR}
+      </if>
+      <if test="description != null">
+       and DESCRIPTION = #{description,jdbcType=VARCHAR}
+      </if>
+      <if test="maintainType != null">
+       and MAINTAIN_TYPE = #{maintainType,jdbcType=INTEGER}
+      </if>
+      <if test="status != null">
+       and STATUS = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="remak != null">
+       and REMAK = #{remak,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null">
+       and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="endTime != null">
+       and END_TIME = #{endTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="userId != null">
+       and USER_ID = #{userId,jdbcType=BIGINT}
+      </if>
+  </select>
+  
+  <select id="queryPageList" parameterType="map" resultMap="BaseResultMap">
+  	
+	SELECT * FROM MAINTAIN_ORDER 
+	WHERE  1=1
+      <if test="jobNumber != null">
+       and JOB_NUMBER = #{jobNumber,jdbcType=INTEGER}
+      </if>
+      <if test="realName != null">
+       and REAL_NAME = #{realName,jdbcType=VARCHAR}
+      </if>
+      <if test="department != null">
+       and DEPARTMENT = #{department,jdbcType=VARCHAR}
+      </if>
+      <if test="description != null">
+       and DESCRIPTION = #{description,jdbcType=VARCHAR}
+      </if>
+      <if test="maintainType != null">
+       and MAINTAIN_TYPE = #{maintainType,jdbcType=INTEGER}
+      </if>
+      <if test="status != null">
+       and STATUS = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="remak != null">
+       and REMAK = #{remak,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null">
+       and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="endTime != null">
+       and END_TIME = #{endTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="userId != null">
+       and USER_ID = #{userId,jdbcType=BIGINT}
+      </if>
+  </select>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.colibri.itsystem.domain.MaintainOrder">
+    update MAINTAIN_ORDER
+    <set>
+      <if test="jobNumber != null">
+        JOB_NUMBER=#{jobNumber,jdbcType=INTEGER},
+      </if>
+      <if test="realName != null">
+        REAL_NAME=#{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        DEPARTMENT=#{department,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION=#{description,jdbcType=VARCHAR},
+      </if>
+      <if test="maintainType != null">
+        MAINTAIN_TYPE=#{maintainType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS=#{status,jdbcType=INTEGER},
+      </if>
+      <if test="remak != null">
+        REMAK=#{remak,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME=#{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        END_TIME=#{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        USER_ID=#{userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <update id="updateByIdAndResource" parameterType="cn.com.colibri.itsystem.domain.MaintainOrder">
+    update MAINTAIN_ORDER
+    <set>
+      <if test="jobNumber != null">
+        JOB_NUMBER=#{jobNumber,jdbcType=INTEGER},
+      </if>
+      <if test="realName != null">
+        REAL_NAME=#{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        DEPARTMENT=#{department,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION=#{description,jdbcType=VARCHAR},
+      </if>
+      <if test="maintainType != null">
+        MAINTAIN_TYPE=#{maintainType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS=#{status,jdbcType=INTEGER},
+      </if>
+      <if test="remak != null">
+        REMAK=#{remak,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME=#{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        END_TIME=#{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        USER_ID=#{userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="cn.com.colibri.itsystem.domain.MaintainOrder">
+    update MAINTAIN_ORDER
+    set
+    JOB_NUMBER=#{jobNumber,jdbcType=INTEGER}
+    
+	,REAL_NAME=#{realName,jdbcType=VARCHAR}
+    
+	,DEPARTMENT=#{department,jdbcType=VARCHAR}
+    
+	,DESCRIPTION=#{description,jdbcType=VARCHAR}
+    
+	,MAINTAIN_TYPE=#{maintainType,jdbcType=INTEGER}
+    
+	,STATUS=#{status,jdbcType=INTEGER}
+    
+	,REMAK=#{remak,jdbcType=VARCHAR}
+    
+	,CREATE_TIME=#{createTime,jdbcType=TIMESTAMP}
+    
+	,END_TIME=#{endTime,jdbcType=TIMESTAMP}
+    
+	,USER_ID=#{userId,jdbcType=BIGINT}
+   where ID = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <update id="batchUpdate" parameterType="java.util.List">
+        update MAINTAIN_ORDER
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="JOB_NUMBER =case " suffix="end,">
+                <foreach collection="list" item="item" index="index">
+	             <if test="item.jobNumber !=null ">
+		              when ID=#{item.id} then #{item.jobNumber,jdbcType=INTEGER}
+		         </if>
+		         <if test="item.jobNumber == null ">
+		              when ID=#{item.id} then MAINTAIN_ORDER.JOB_NUMBER
+		         </if>	
+                </foreach>
+            </trim>
+            <trim prefix="REAL_NAME =case " suffix="end,">
+                <foreach collection="list" item="item" index="index">
+	             <if test="item.realName !=null ">
+		              when ID=#{item.id} then #{item.realName,jdbcType=VARCHAR}
+		         </if>
+		         <if test="item.realName == null ">
+		              when ID=#{item.id} then MAINTAIN_ORDER.REAL_NAME
+		         </if>	
+                </foreach>
+            </trim>
+            <trim prefix="DEPARTMENT =case " suffix="end,">
+                <foreach collection="list" item="item" index="index">
+	             <if test="item.department !=null ">
+		              when ID=#{item.id} then #{item.department,jdbcType=VARCHAR}
+		         </if>
+		         <if test="item.department == null ">
+		              when ID=#{item.id} then MAINTAIN_ORDER.DEPARTMENT
+		         </if>	
+                </foreach>
+            </trim>
+            <trim prefix="DESCRIPTION =case " suffix="end,">
+                <foreach collection="list" item="item" index="index">
+	             <if test="item.description !=null ">
+		              when ID=#{item.id} then #{item.description,jdbcType=VARCHAR}
+		         </if>
+		         <if test="item.description == null ">
+		              when ID=#{item.id} then MAINTAIN_ORDER.DESCRIPTION
+		         </if>	
+                </foreach>
+            </trim>
+            <trim prefix="MAINTAIN_TYPE =case " suffix="end,">
+                <foreach collection="list" item="item" index="index">
+	             <if test="item.maintainType !=null ">
+		              when ID=#{item.id} then #{item.maintainType,jdbcType=INTEGER}
+		         </if>
+		         <if test="item.maintainType == null ">
+		              when ID=#{item.id} then MAINTAIN_ORDER.MAINTAIN_TYPE
+		         </if>	
+                </foreach>
+            </trim>
+            <trim prefix="STATUS =case " suffix="end,">
+                <foreach collection="list" item="item" index="index">
+	             <if test="item.status !=null ">
+		              when ID=#{item.id} then #{item.status,jdbcType=INTEGER}
+		         </if>
+		         <if test="item.status == null ">
+		              when ID=#{item.id} then MAINTAIN_ORDER.STATUS
+		         </if>	
+                </foreach>
+            </trim>
+            <trim prefix="REMAK =case " suffix="end,">
+                <foreach collection="list" item="item" index="index">
+	             <if test="item.remak !=null ">
+		              when ID=#{item.id} then #{item.remak,jdbcType=VARCHAR}
+		         </if>
+		         <if test="item.remak == null ">
+		              when ID=#{item.id} then MAINTAIN_ORDER.REMAK
+		         </if>	
+                </foreach>
+            </trim>
+            <trim prefix="CREATE_TIME =case " suffix="end,">
+                <foreach collection="list" item="item" index="index">
+	             <if test="item.createTime !=null ">
+		              when ID=#{item.id} then #{item.createTime,jdbcType=TIMESTAMP}
+		         </if>
+		         <if test="item.createTime == null ">
+		              when ID=#{item.id} then MAINTAIN_ORDER.CREATE_TIME
+		         </if>	
+                </foreach>
+            </trim>
+            <trim prefix="END_TIME =case " suffix="end,">
+                <foreach collection="list" item="item" index="index">
+	             <if test="item.endTime !=null ">
+		              when ID=#{item.id} then #{item.endTime,jdbcType=TIMESTAMP}
+		         </if>
+		         <if test="item.endTime == null ">
+		              when ID=#{item.id} then MAINTAIN_ORDER.END_TIME
+		         </if>	
+                </foreach>
+            </trim>
+            <trim prefix="USER_ID =case " suffix="end,">
+                <foreach collection="list" item="item" index="index">
+	             <if test="item.userId !=null ">
+		              when ID=#{item.id} then #{item.userId,jdbcType=BIGINT}
+		         </if>
+		         <if test="item.userId == null ">
+		              when ID=#{item.id} then MAINTAIN_ORDER.USER_ID
+		         </if>	
+                </foreach>
+            </trim>
+        </trim>
+        where ID in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            #{item.id,jdbcType=BIGINT}
+        </foreach>
+    </update>
+</mapper>
