@@ -1,19 +1,14 @@
 package cn.com.colibri.itsystem.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import cn.com.colibri.itsystem.dao.UserDao;
 import cn.com.colibri.itsystem.domain.User;
 import cn.com.colibri.itsystem.domain.criteria.UserCriteria;
+import cn.com.colibri.itsystem.enums.DeleteFlagEnum;
 import cn.com.colibri.itsystem.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.hcloud.utils.StringUtil;
@@ -30,7 +25,7 @@ import com.hcloud.page.Page;
  * 
  * 摘    要： 
  * 版    本：1.0
- * 作    者：yanlang
+ * 作    者： liuxueli
  * 创建于：2019-05-24 05:00:56
  * 最后修改时间：
  * 
@@ -67,6 +62,8 @@ public class UserServiceImpl  implements UserService {
  
  	@Override
     public int insert(User user) throws ServiceException {
+		user.setCreatTime(new Date());
+		user.setDeleteFlag(DeleteFlagEnum.NO.getValue());
 		return userDao.insert(user);
 	}
     

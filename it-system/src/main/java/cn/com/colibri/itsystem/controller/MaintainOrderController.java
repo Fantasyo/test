@@ -57,11 +57,11 @@ public class MaintainOrderController {
     @GetMapping(value = "/list")
     public ApiResult<Page<MaintainOrderDetailVO>> maintainOrderList(Integer pageNo, Integer pageSize) throws Exception {
         ApiResult<Page<MaintainOrderDetailVO>> result = new ApiResult<Page<MaintainOrderDetailVO>>();
-        MaintainOrder maintainOrder =new MaintainOrder();
+        MaintainOrder maintainOrder = new MaintainOrder();
         Page<MaintainOrder> queryMaintainOrderPage = maintainOrderService.queryMaintainOrderPage(pageSize, pageNo, maintainOrder);
-        List<MaintainOrder> list=new ArrayList<MaintainOrder>(queryMaintainOrderPage.getData());
-        List<MaintainOrderDetailVO> dataList=ConvertDtoUtil.listBeanToDto(list,MaintainOrderDetailVO.class);
-		Page<MaintainOrderDetailVO> listVo=new Page<MaintainOrderDetailVO>(dataList, queryMaintainOrderPage.getTotalRecord(), queryMaintainOrderPage.getIndex(), queryMaintainOrderPage.getSize());
+        List<MaintainOrder> list = new ArrayList<MaintainOrder>(queryMaintainOrderPage.getData());
+        List<MaintainOrderDetailVO> dataList = ConvertDtoUtil.listBeanToDto(list,MaintainOrderDetailVO.class);
+		Page<MaintainOrderDetailVO> listVo = new Page<MaintainOrderDetailVO>(dataList, queryMaintainOrderPage.getTotalRecord(), queryMaintainOrderPage.getIndex(), queryMaintainOrderPage.getSize());
 	    result.setData(listVo);
         result.code(Code.normal).message(Constants.YD_OK_SHOW);
         return result;
@@ -71,7 +71,7 @@ public class MaintainOrderController {
     @PostMapping(value = "/add")
     public ApiResult addMaintainOrder(  MaintainOrderDetailVO  MaintainOrderDetailVO) throws Exception {
         ApiResult result = new ApiResult();
-        MaintainOrder maintainOrder=new MaintainOrder();
+        MaintainOrder maintainOrder = new MaintainOrder();
         BeanUtils.copyProperties(maintainOrder,  MaintainOrderDetailVO);
         maintainOrderService.insert(maintainOrder);
         result.code(Code.normal).message(Constants.YD_OK_SAVE);
@@ -82,7 +82,7 @@ public class MaintainOrderController {
     @PostMapping(value = "/edit")
     public ApiResult editMaintainOrder(  MaintainOrderDetailVO  MaintainOrderDetailVO) throws Exception  {
         ApiResult result = new ApiResult();
-        MaintainOrder maintainOrder=new MaintainOrder();
+        MaintainOrder maintainOrder = new MaintainOrder();
         BeanUtils.copyProperties(maintainOrder,  MaintainOrderDetailVO);
         maintainOrderService.updateByPrimaryKeySelective(maintainOrder);
         result.code(Code.normal).message(Constants.YD_OK_SAVE);
@@ -96,8 +96,8 @@ public class MaintainOrderController {
     @GetMapping(value = "/detail")
     public ApiResult<MaintainOrderDetailVO> maintainOrderDetial(  Long id) throws Exception {
         ApiResult<MaintainOrderDetailVO> result = new ApiResult<MaintainOrderDetailVO>();
-        MaintainOrder maintainOrder= maintainOrderService.selectByPrimaryKey(id);
-        MaintainOrderDetailVO maintainOrderDetailVO=new MaintainOrderDetailVO();
+        MaintainOrder maintainOrder = maintainOrderService.selectByPrimaryKey(id);
+        MaintainOrderDetailVO maintainOrderDetailVO = new MaintainOrderDetailVO();
         BeanUtils.copyProperties(maintainOrderDetailVO, maintainOrder);
         result.setData(maintainOrderDetailVO);
         result.code(Code.normal).message(Constants.YD_OK_SAVE);

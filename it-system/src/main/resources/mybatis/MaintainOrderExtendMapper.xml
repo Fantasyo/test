@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.com.colibri.itsystem.dao.MaintainOrderExtendDao">
+ <resultMap id="BaseResultMap" type="cn.com.colibri.itsystem.domain.MaintainOrder">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="JOB_NUMBER" jdbcType="INTEGER" property="jobNumber" />
+    <result column="REAL_NAME" jdbcType="VARCHAR" property="realName" />
+    <result column="DEPARTMENT" jdbcType="VARCHAR" property="department" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="MAINTAIN_TYPE" jdbcType="INTEGER" property="maintainType" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+    <result column="REMAK" jdbcType="VARCHAR" property="remak" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="END_TIME" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="USER_ID" jdbcType="BIGINT" property="userId" />
+  </resultMap>
+
+</mapper>

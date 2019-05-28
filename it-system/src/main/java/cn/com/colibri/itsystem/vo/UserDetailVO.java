@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,18 +17,16 @@ import lombok.Setter;
  * 
  * 摘    要： 用户表详情VO
  * 版    本：1.0
- * 作    者：yanlang
+ * 作    者： liuxueli
  * 创建于：2019-05-24 05:00:56
  * 最后修改时间：
  * 
  *********************************************************************************************************/
-@Setter
-@Getter
+@Data
 @ApiModel(value = "用户表详情实体")
 public class UserDetailVO {
     
     /**ID*/
-    @NotNull(message = "ID不能为空")
     @ApiModelProperty(value = "ID",required = true)
 	private Integer id;
 

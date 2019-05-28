@@ -22,10 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -45,7 +42,7 @@ import com.hcloud.utils.ConvertDtoUtil;
  * 
  * 摘    要： 用户表
  * 版    本：1.0
- * 作    者：yanlang
+ * 作    者： liuxueli
  * 创建于：2019-05-24 05:00:56
  * 最后修改时间：
  * 
@@ -54,6 +51,7 @@ import com.hcloud.utils.ConvertDtoUtil;
 @RestController
 @RequestMapping("/admin/system/User")
 @Api(value = "用户表-接口", description = "用户表-接口")
+@CrossOrigin(origins = "*")
 public class UserController {
 	
 	@Autowired
@@ -66,6 +64,7 @@ public class UserController {
     })
     @GetMapping(value = "/list")
     public ApiResult<Page<UserDetailVO>> userList(Integer pageNo, Integer pageSize) throws Exception {
+	    log.info("{},{}",pageNo,pageSize);
         ApiResult<Page<UserDetailVO>> result = new ApiResult<Page<UserDetailVO>>();
         User user =new User();
         Page<User> queryUserPage = userService.queryUserPage(pageSize, pageNo, user);
