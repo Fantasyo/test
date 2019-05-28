@@ -59,6 +59,6 @@ public class UserDetailVO {
 	@NotNull(message = "地址 1、石岩，2、帝光，3、宏发，4、中山，5、南山，6、苏州，7、成都，8.、坪山，9、郑州，10、宁德不能为空")
     @ApiModelProperty(value = "地址 1、石岩，2、帝光，3、宏发，4、中山，5、南山，6、苏州，7、成都，8.、坪山，9、郑州，10、宁德",required = true)
 	private Integer address;
-	
+
     
   }
